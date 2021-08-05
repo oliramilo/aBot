@@ -1,5 +1,3 @@
-/** Discord Bot written in GoLang**/
-
 package main
 
 import (
