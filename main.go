@@ -43,12 +43,16 @@ func readFile(filename string) {
 	id = scanner.Text()
 }
 
-func processCommand(session *discordgo.Session, message *discordgo.MessageCreate) {
+func sendMessage(session *discordgo.Session, message *discordgo.MessageCreate) {
 
 }
 
-func main() {
+func authMessage(message *discordgo.MessageCreate) (authBot bool) {
+	authBot = message.Author.ID != id
+	return
+}
 
+func main() {
 	fmt.Println("Program started...")
 	fmt.Println("Start time: " + time.Now().String())
 
