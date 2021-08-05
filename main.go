@@ -3,27 +3,53 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"log"
+	"os"
 	"time"
-	"container/list"
+
 	"github.com/bwmarrin/discordgo"
 )
 
 var tok string
-var bot_id string
-var commands *list
+var id string
 
-func createSession() {
-	timeStart := time.Now()
-	fmt.println("Time start: " + timeStart)
-	discord, err := discordgo.New("Bot " + "authetication token")
-	fmt.print(err)
-	fmt.print(discord)
+func getId() {
+	args := os.Args[1:]
+	if len(args) == 2 {
+		tok = args[0]
+		id = args[1]
+	} else if len(args) == 1 {
+		filename := args[0]
+		readFile(filename)
+	} else {
+		fmt.Println("Program requires bot token and botid")
+	}
 }
 
-func processCommand(session *discordgo.Session, message *discordgo.Mes)
+func readFile(filename string) {
+	file, err := os.Open(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	scanner.Scan()
+	tok = scanner.Text()
+
+	scanner.Scan()
+	id = scanner.Text()
+}
+
+func processCommand(session *discordgo.Session, message *discordgo.MessageCreate) {
+
+}
 
 func main() {
-	createSession()
-	
+
+	fmt.Println("Program started...")
+	fmt.Println("Start time: " + time.Now().String())
+
 }
