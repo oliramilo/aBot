@@ -1,6 +1,9 @@
 package commands
 
 import (
+	"bufio"
+	"log"
+	"os"
 	"strings"
 
 	"github.com/bwmarrin/discordgo"
@@ -12,6 +15,20 @@ func botReply(botid string, session *discordgo.Session, message *discordgo.Messa
 		//Reply
 	}
 
+}
+
+func getCommands() (commands []string) {
+	file, err := os.Open("command_list")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		commands = append(commands, strings.TrimSpace(scanner.Text()))
+	}
+	return
 }
 
 func processCommand(message string, commands []string) {
