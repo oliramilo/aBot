@@ -2,30 +2,28 @@
 
 package main
 
-
 import (
 	"fmt"
-	"os"
 	"time"
 	"container/list"
 	"github.com/bwmarrin/discordgo"
 )
 
+var tok string
+var bot_id string
+var commands *list
 
-
-var {
-	Token = ""
-	BotID string
+func createSession() {
+	timeStart := time.Now()
+	fmt.println("Time start: " + timeStart)
+	discord, err := discordgo.New("Bot " + "authetication token")
+	fmt.print(err)
+	fmt.print(discord)
 }
 
-
-func processCommand(session *discordgo.Session,message *discordgo.Mes)
+func processCommand(session *discordgo.Session, message *discordgo.Mes)
 
 func main() {
-	timeStart = time.Now()
-
-	commandList := list.New()
-
-	discord , err := discordgo.New("Bot " + "authentication token")
-
+	createSession()
+	
 }
