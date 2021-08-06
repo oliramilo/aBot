@@ -46,12 +46,12 @@ func main() {
 		fmt.Println(err.Error())
 	}
 
-	bID, err := aBot.User("@me")
+	bot, err := aBot.User("@me")
 
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-	BotID := bID
+	BotID = bot.ID
 
 	err = aBot.Open()
 
@@ -61,6 +61,9 @@ func main() {
 	}
 
 	fmt.Println("Bot is Live and Running...")
+
+	<-make(chan struct{})
+	return
 
 }
 
