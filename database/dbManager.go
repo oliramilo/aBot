@@ -1,12 +1,43 @@
 package dbManager
 
-type dbinfo struct {
-	host     string
-	user     string
-	password string
-	dbname   string
+import (
+	"database/sql"
+	"fmt"
+	"os"
+	"strconv"
+)
+
+func getCommandList() {
+
 }
 
-func createDbStruct(host string, user string, password string, dbname string) dbinfo {
-	return dbinfo{host, user, password, dbname}
+func connectDb() {
+	host := os.Getenv("DB_HOST")
+	username := os.Getenv("DB_USER")
+	password := os.Getenv("DB_PASSWORD")
+	dbname := os.Getenv("DB_NAME")
+	port, err := strconv.Atoi(os.Getenv("DB_PORT"))
+
+	if err != nil {
+		fmt.Println("Invalid port")
+		os.Exit(0)
+	}
+
+	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
+		"password=%s dbname=%s sslmode=disable",
+		host, port, username, password, dbname)
+	db, err := sql.Open("postgres", psqlInfo)
+
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
+
+	err = db.Ping()
+
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Connecterd to the database successfully")
 }
