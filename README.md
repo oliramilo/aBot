@@ -2,3 +2,5 @@
 <b>Commands</b>
 
     - /today
+    - /stats
+    - /play
