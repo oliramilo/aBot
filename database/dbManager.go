@@ -1,12 +1,12 @@
 package dbManager
 
-const (
-	host     = "localhost"
-	user     = "oliramilo"
-	password = ""
-	dbname   = ""
-)
+type dbinfo struct {
+	host     string
+	user     string
+	password string
+	dbname   string
+}
 
-func connectDatabase() {
-
+func createDbStruct(host string, user string, password string, dbname string) dbinfo {
+	return dbinfo{host, user, password, dbname}
 }
