@@ -41,17 +41,20 @@ func readFile(filename string) {
 	id = scanner.Text()
 }
 
-func sendMessage(session *discordgo.Session, message *discordgo.MessageCreate) {
-
-}
-
-func authMessage(message *discordgo.MessageCreate) (authBot bool) {
-	authBot = message.Author.ID != id
-	return
-}
-
 func main() {
+	timeStart = time.Now()
 	fmt.Println("Program started...")
-	fmt.Println("Start time: " + time.Now().String())
+	fmt.Println("Start time: " + timeStart.String())
+	getID()
 
+	aBot, err := discordgo.New("Bot " + token)
+
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+}
+
+func getDay() (dayOfWeek, int) {
+	dayOfWeek = time.Now().Day()
+	return
 }
