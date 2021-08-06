@@ -1,9 +1,7 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"log"
 	"os"
 	"time"
 
@@ -21,17 +19,6 @@ func getId() string {
 		fmt.Println("Program requires bot token")
 	}
 	return ""
-}
-
-func readFile(filename string) {
-	file, err := os.Open(filename)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-	scanner.Scan()
 }
 
 func main() {
