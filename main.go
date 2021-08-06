@@ -10,20 +10,17 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
-var tok string
-var id string
+var BotID string
 
-func getId() {
+/**Bot token taken from args**/
+func getId() string {
 	args := os.Args[1:]
-	if len(args) == 2 {
-		tok = args[0]
-		id = args[1]
-	} else if len(args) == 1 {
-		filename := args[0]
-		readFile(filename)
+	if len(args) == 1 {
+		return args[0]
 	} else {
-		fmt.Println("Program requires bot token and botid")
+		fmt.Println("Program requires bot token")
 	}
+	return ""
 }
 
 func readFile(filename string) {
@@ -35,26 +32,38 @@ func readFile(filename string) {
 
 	scanner := bufio.NewScanner(file)
 	scanner.Scan()
-	tok = scanner.Text()
-
-	scanner.Scan()
-	id = scanner.Text()
 }
 
 func main() {
-	timeStart = time.Now()
+	timeStart := time.Now()
 	fmt.Println("Program started...")
 	fmt.Println("Start time: " + timeStart.String())
-	getID()
+	botToken := getId()
 
-	aBot, err := discordgo.New("Bot " + token)
+	aBot, err := discordgo.New("Bot " + botToken)
 
 	if err != nil {
 		fmt.Println(err.Error())
 	}
+
+	bID, err := aBot.User("@me")
+
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	BotID := bID
+
+	err = aBot.Open()
+
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+
+	fmt.Println("Bot is Live and Running...")
+
 }
 
-func getDay() (dayOfWeek, int) {
-	dayOfWeek = time.Now().Day()
-	return
+func getDay() int {
+	return time.Now().Day()
 }
