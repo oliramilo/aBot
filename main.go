@@ -85,6 +85,8 @@ func botReply(botid string, session *discordgo.Session, messageSession *discordg
 				}
 				_, _ = session.ChannelMessageSend(messageSession.ChannelID, strings.Join(message, "\n"))
 			}
+		} else {
+			fmt.Println("No commands detected")
 		}
 	}
 
