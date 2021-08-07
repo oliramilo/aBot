@@ -29,9 +29,9 @@ func getId() string {
 func main() {
 
 	timeStart := time.Now()
+	botToken := getId()
 	fmt.Println("Program started...")
 	fmt.Println("Start time: " + timeStart.String())
-	botToken := getId()
 
 	if botToken == "" {
 		return
