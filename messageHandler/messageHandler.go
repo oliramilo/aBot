@@ -5,14 +5,28 @@ import (
 	"log"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/bwmarrin/discordgo"
 )
 
 /**Bot reply to a message by user**/
-func botReply(botid string, session *discordgo.Session, message *discordgo.MessageCreate) {
-	if botid != message.Author.ID {
+func botReply(botid string, session *discordgo.Session, messageSession *discordgo.MessageCreate, availabilities map[string][]int) {
+	if botid != messageSession.Author.ID {
 		//Reply
+		dayOfWeek := int(time.Now().Weekday())
+
+		if dayOfWeek > 5 {
+			session.ChannelMessageSend(messageSession.ChannelID, "No one is in the office day")
+		} else {
+			message := []string{}
+			for name, timetable := range availabilities {
+				if timetable[dayOfWeek-1] == 1 {
+					message = append(message, name+" is in the office today.")
+				}
+			}
+			_, _ = session.ChannelMessageSend(messageSession.ChannelID, strings.Join(message, "\n"))
+		}
 	}
 
 }

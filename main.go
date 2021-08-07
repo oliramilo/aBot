@@ -28,6 +28,10 @@ func main() {
 	fmt.Println("Start time: " + timeStart.String())
 	botToken := getId()
 
+	if botToken == "" {
+		return
+	}
+
 	aBot, err := discordgo.New("Bot " + botToken)
 
 	if err != nil {
@@ -53,8 +57,4 @@ func main() {
 	<-make(chan struct{})
 	return
 
-}
-
-func getDay() int {
-	return time.Now().Day()
 }
