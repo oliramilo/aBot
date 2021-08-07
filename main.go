@@ -22,6 +22,7 @@ func getId() string {
 }
 
 func main() {
+
 	timeStart := time.Now()
 	fmt.Println("Program started...")
 	fmt.Println("Start time: " + timeStart.String())
